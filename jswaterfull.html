@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>瀑布流</title>
+    <style type="text/css">
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        #container {
+            position: relative;
+
+        }
+
+        .box {
+
+            padding: 5px;
+            float: left;
+
+        }
+
+        .box_img {
+            padding: 5px;
+            border: 1px solid #cccccc;
+            box-shadow: 0 0 5px #ccc;
+            border-radius: 5px;
+        }
+
+        .box_img img {
+            width: 150px;
+            height: auto;
+        }
+    </style>
+
+    <script>
+        window.onload = function () {
+            imgLocation("container", "box")
+        }
+
+        function imgLocation(parent, content) {
+            //将parent中的所有内容全部取出来
+            var cparent = document.getElementById(parent);
+            var ccontent = getChildElement(cparent, content);
+            var imgWidth = ccontent[0].offsetWidth;
+            var num = Math.floor(document.documentElement.clientWidth / imgWidth);
+            cparent.style.cssText = "width:" + imgWidth * num + "px;margin:0px auto";
+
+            var BoxHeightArr = [];
+            for (var i = 0; i < ccontent.length; i++) {
+                if (i < num) {
+                    BoxHeightArr[i] = ccontent[i].offsetHeight;
+                } else {
+                    var minHeight = Math.min.apply(null, BoxHeightArr);
+                    var minIndex = getMinHeightLocation(BoxHeightArr, minHeight);
+                    console.log(minHeight);
+                    ccontent[i].style.position = "absolute";
+                    ccontent[i].style.top = minHeight + "px";
+                    ccontent[i].style.left = minIndex * imgWidth + "px";
+                    BoxHeightArr[minIndex] =BoxHeightArr[minIndex]+ccontent[i].offsetHeight;
+                }
+
+            }
+        }
+
+        function getMinHeightLocation(BoxHeightArr, minHeight) {
+            for (var i in BoxHeightArr) {
+                if (BoxHeightArr[i] == minHeight) {
+                    return i;
+                }
+            }
+        }
+
+        function getChildElement(parent, content) {
+            var contentArry = [];
+            var allcontent = parent.getElementsByTagName("*");
+            for (var i = 0; i < allcontent.length; i++) {
+                if (allcontent[i].className == content) {
+                    contentArry.push(allcontent[i]);
+                }
+            }
+
+            return contentArry;
+        }
+    </script>
+</head>
+<body>
+<div id="container">
+    <div class="box">
+        <div class="box_img">
+            <img src="sucai/1.jpg">
+        </div>
+    </div>
+    <div class="box">
+        <div class="box_img">
+            <img src="sucai/2.jpg">
+        </div>
+    </div>
+    <div class="box">
+        <div class="box_img">
+            <img src="sucai/3.jpg">
+        </div>
+    </div>
+    <div class="box">
+        <div class="box_img">
+            <img src="sucai/4.jpg">
+        </div>
+    </div>
+    <div class="box">
+        <div class="box_img">
+            <img src="sucai/5.jpg">
+        </div>
+    </div>
+    <div class="box">
+        <div class="box_img">
+            <img src="sucai/6.jpg">
+        </div>
+    </div>
+    <div class="box">
+        <div class="box_img">
+            <img src="sucai/7.jpg">
+        </div>
+    </div>
+    <div class="box">
+        <div class="box_img">
+            <img src="sucai/8.jpg">
+        </div>
+    </div>
+    <div class="box">
+        <div class="box_img">
+            <img src="sucai/9.jpg">
+        </div>
+    </div>
+    <div class="box">
+        <div class="box_img">
+            <img src="sucai/10.jpg">
+        </div>
+    </div>
+    <div class="box">
+        <div class="box_img">
+            <img src="sucai/11.jpg">
+        </div>
+    </div>
+    <div class="box">
+        <div class="box_img">
+            <img src="sucai/12.png">
+        </div>
+    </div>
+    <div class="box">
+        <div class="box_img">
+            <img src="sucai/13.jpg">
+        </div>
+    </div>
+</div>
+</body>
+</html>
